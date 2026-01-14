@@ -1,8 +1,10 @@
 import shutil
 from pathlib import Path
 
+# Base templates folder
 BASE_DIR = Path(__file__).resolve().parent / "templates"
 
+# Backend templates
 BACKEND_TEMPLATES = {
     "flask": BASE_DIR / "backend/flask_template",
     "django": BASE_DIR / "backend/django_template",
@@ -12,6 +14,7 @@ BACKEND_TEMPLATES = {
     "springboot": BASE_DIR / "backend/springboot_template",
 }
 
+# Frontend templates
 FRONTEND_TEMPLATES = {
     "vanilla": BASE_DIR / "frontend/vanilla_template",
     "react": BASE_DIR / "frontend/react_template",
@@ -20,6 +23,7 @@ FRONTEND_TEMPLATES = {
     "svelte": BASE_DIR / "frontend/svelte_template",
 }
 
+# DB templates
 DB_TEMPLATES = {
     "sqlite": BASE_DIR / "db/sqlite.sql",
     "postgres": BASE_DIR / "db/postgres.sql",
@@ -29,7 +33,7 @@ DB_TEMPLATES = {
 
 
 def copy_template(src: Path, dst: Path) -> None:
-    """Copy file or folder recursively"""
+    """Copy a file or directory recursively"""
     if src.is_dir():
         shutil.copytree(src, dst)
     else:
@@ -47,7 +51,7 @@ def create_project(name: str, backend: str, frontend: str, db: str) -> None:
 
     root.mkdir()
 
-    # MVC folders
+    # Create MVC folders
     for folder in ["models", "views", "controllers"]:
         (root / folder).mkdir()
 
@@ -75,6 +79,12 @@ def create_project(name: str, backend: str, frontend: str, db: str) -> None:
     )
 
     # Root README
-    (root / "README.md").write_text(f"# {name}\n\nGenerated with ProjectScaffold\n")
+    (root / "README.md").write_text(
+        f"# {name}\n\nGenerated with ProjectScaffold\n"
+    )
 
-    print(f"Scaffolded {name} with {backend} backend, {frontend} frontend, and {db} database.")
+    # Success message
+    print(
+        f"Scaffolded {name} with {backend} backend, "
+        f"{frontend} frontend, and {db} database."
+     )
