@@ -14,4 +14,5 @@ setup(
         ],
     },
     python_requires='>=3.9',
+    include_package_data=True,  # <-- add this
 )
